@@ -2,11 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Chocolate Medico - Mohammed Ashfak</title>
-    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons for UI and Socials -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
@@ -15,11 +13,12 @@
             font-family: 'Inter', sans-serif;
             background: radial-gradient(circle at center, #2a0404 0%, #050000 100%);
             color: white;
-            min-height: 100vh;
+            height: 100dvh;
+            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-x: hidden;
+            overflow: hidden; 
         }
 
         body.modal-open {
@@ -38,16 +37,13 @@
         .spin { animation: spin 10s linear infinite; }
         .paused { animation-play-state: paused !important; }
 
-        /* --- HEART MONITOR ECG PROGRESS BAR --- */
         .ecg-container {
             position: relative;
             width: 100%;
-            height: 64px; 
             display: flex;
             align-items: center;
         }
 
-        /* Invisible Native Slider for Interaction overlay */
         input[type=range].custom-range {
             -webkit-appearance: none;
             width: 100%;
@@ -74,18 +70,16 @@
             transition: background-color 0.15s, box-shadow 0.15s, transform 0.15s;
         }
         
-        /* --- MODERN LYRICS ANIMATION --- */
         .lyrics-container {
-            max-height: 180px;
+            flex: 1;
+            width: 100%;
+            min-height: 0;
             overflow-y: auto;
             scroll-behavior: smooth;
             -ms-overflow-style: none;  
             scrollbar-width: none;  
             mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
             -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
-        }
-        @media (min-width: 640px) {
-            .lyrics-container { max-height: 220px; }
         }
         .lyrics-container::-webkit-scrollbar { display: none; }
         
@@ -95,6 +89,8 @@
             transform: translateY(12px) scale(0.95);
             filter: blur(2px);
             will-change: transform, opacity, filter;
+            padding: 8px 0;
+            text-align: center;
         }
 
         .lyric-line.active {
@@ -112,7 +108,6 @@
             50% { transform: translateY(0) scale(1.08); text-shadow: 0 0 25px rgba(239, 68, 68, 0.9); }
         }
 
-        /* Floating Animation for Reactions */
         @keyframes floatUp {
             0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 1; }
             50% { transform: translateY(-40px) scale(1.2) rotate(15deg); opacity: 0.8; }
@@ -130,9 +125,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 100dvh;
         }
         .blurred {
-            filter: blur(12px);
+            filter: blur(15px);
             opacity: 0.4;
             pointer-events: none;
         }
@@ -140,22 +136,22 @@
 </head>
 <body class="modal-open">
 
-    <!-- Entry Modal (Note Window) -->
-    <div id="entry-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md transition-opacity duration-700 p-4 sm:p-6">
-        <div class="glass-panel w-full max-w-sm rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center transform transition-transform duration-700 scale-100" id="modal-box">
+    <!-- Entry Modal -->
+    <div id="entry-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md transition-opacity duration-700 p-4">
+        <div class="glass-panel w-full max-w-sm rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center transform transition-transform duration-700 scale-100 max-h-[90dvh] overflow-y-auto" id="modal-box">
             
-            <i data-lucide="headphones" class="w-12 h-12 sm:w-14 sm:h-14 text-red-500 mb-4 sm:mb-5 animate-pulse drop-shadow-[0_0_15px_rgba(239,68,68,0.8)]"></i>
+            <i data-lucide="headphones" class="w-12 h-12 sm:w-14 sm:h-14 text-red-500 mb-4 sm:mb-5 animate-pulse drop-shadow-[0_0_15px_rgba(239,68,68,0.8)] shrink-0"></i>
             
-            <h2 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-white tracking-wide">To the doctor who stopped my heart...</h2>
+            <h2 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-white tracking-wide shrink-0">To the doctor who stopped my heart...</h2>
             
-            <p class="text-red-200/70 mb-6 sm:mb-8 text-xs sm:text-sm leading-relaxed">
-		They say doctors are supposed to heal hearts, but the moment I saw you, mine completely skipped a beat. I didn’t know how to simply say “hello,” so I turned my feelings into this song instead. If you’re willing to listen, just put on your headphones and click <b>Enter</b>. If not, you can press <b>Go Back</b>—no pressure at all, and I truly wish you a beautiful day.
-	    </p>
-<p class="text-red-200/70 mb-6 sm:mb-8 text-xs sm:text-sm leading-relaxed">
-<b>And if the song makes you smile, feel free to snap a moment of it and keep it on your Instagram story.</b>
+            <p class="text-red-200/70 mb-4 sm:mb-6 text-xs sm:text-sm leading-relaxed shrink-0 text-center">
+                They say doctors are supposed to heal hearts, but the moment I saw you, mine completely skipped a beat. I didn’t know how to simply say “hello,” so I turned my feelings into this song instead. If you’re willing to listen, just put on your headphones and click <b>Enter</b>. If not, you can press <b>Go Back</b>—no pressure at all, and I truly wish you a beautiful day.
+            </p>
+            <p class="text-red-200/70 mb-6 sm:mb-8 text-xs sm:text-sm leading-relaxed shrink-0">
+                <b>And if the song makes you smile, feel free to snap a moment of it and keep it on your Instagram story.</b>
             </p>
             
-            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full">
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full shrink-0">
                 <button onclick="goBack()" class="w-full sm:flex-1 py-3 px-4 rounded-xl border border-red-900/50 text-red-300/80 hover:text-white hover:bg-red-900/40 transition font-semibold text-sm">
                     Go Back
                 </button>
@@ -166,68 +162,59 @@
         </div>
     </div>
 
-    <!-- Main Content Wrapper -->
-    <div id="main-content" class="blurred p-3 sm:p-8 w-full max-w-full">
+    <!-- Main Content -->
+    <div id="main-content" class="blurred p-2 sm:p-4 w-full h-full flex-1 flex flex-col items-center justify-center min-h-0">
         
-        <div class="glass-panel w-full max-w-md mx-auto rounded-3xl p-5 sm:p-8 flex flex-col items-center mt-2 sm:mt-10">
+        <div class="glass-panel w-full max-w-md mx-auto rounded-3xl p-3 sm:p-5 flex flex-col items-center h-[95dvh] min-h-0">
             
-            <!-- Header -->
-            <div class="w-full flex justify-between items-center mb-5 sm:mb-6 text-red-200/50">
+            <div class="w-full flex justify-between items-center mb-2 text-red-200/50 shrink-0">
                 <i data-lucide="music" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 <span class="text-[10px] sm:text-xs font-bold tracking-widest uppercase">Now Playing</span>
-                <i data-lucide="bar-chart-2" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                <i data-lucide="activity" class="w-4 h-4 sm:w-5 sm:h-5"></i>
             </div>
 
-            <!-- Cover Art -->
-            <div class="relative w-48 h-48 sm:w-64 sm:h-64 mb-6 sm:mb-8 rounded-full shadow-[0_0_40px_rgba(220,38,38,0.4)] sm:shadow-[0_0_50px_rgba(220,38,38,0.4)] border-4 border-[#3a0a0a] overflow-hidden flex-shrink-0">
-                <img id="cover-art" src="Chocolate%20Medico.png" alt="Chocolate Medico Cover Art" class="w-full h-full object-cover spin paused" onerror="this.src='https://images.unsplash.com/photo-1614613535308-eb51bd3d2c17?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
-                <!-- Center hole for vinyl effect -->
-                <div class="absolute inset-0 m-auto w-8 h-8 sm:w-12 sm:h-12 bg-[#050000] rounded-full border border-red-900/40 shadow-inner"></div>
+            <!-- Cover Art - Sized for Poco X3 Pro height -->
+            <div class="relative w-[18vh] h-[18vh] min-w-[100px] min-h-[100px] mb-2 sm:mb-4 rounded-full shadow-[0_0_30px_rgba(220,38,38,0.4)] border-4 border-[#3a0a0a] overflow-hidden flex-shrink-0">
+                <img id="cover-art" src="Chocolate%20Medico.png" alt="Cover Art" class="w-full h-full object-cover spin paused" onerror="this.src='396263.png'">
+                <div class="absolute inset-0 m-auto w-8 h-8 sm:w-10 sm:h-10 bg-[#050000] rounded-full border border-red-900/40 shadow-inner"></div>
             </div>
 
-            <!-- Song Info & Reaction Button -->
-            <div class="text-center mb-5 sm:mb-6 relative w-full flex flex-col items-center px-2">
-                <h1 class="text-xl sm:text-2xl font-bold mb-1 tracking-wide line-clamp-1">Chocolate Medico</h1>
-                <p class="text-red-300/60 text-xs sm:text-sm font-medium mb-3 sm:mb-4">Mohammed Ashfak</p>
+            <!-- Song Info -->
+            <div class="text-center mb-2 relative w-full flex flex-col items-center px-2 shrink-0">
+                <h1 class="text-xl sm:text-2xl font-bold mb-0.5 tracking-wide line-clamp-1">Chocolate Medico</h1>
+                <p class="text-red-300/60 text-xs sm:text-sm font-medium mb-2 sm:mb-3">Mohammed Ashfak</p>
                 
-                <button id="reaction-btn" onclick="triggerReaction(event)" class="relative flex items-center gap-2 px-4 sm:px-5 py-1.5 sm:py-2 bg-[#1a0505] border border-red-900/40 rounded-full hover:bg-red-900/40 transition shadow-[0_0_15px_rgba(220,38,38,0.2)] active:scale-95 group">
+                <button id="reaction-btn" onclick="triggerReaction(event)" class="relative flex items-center gap-2 px-4 sm:px-5 py-1.5 bg-[#1a0505] border border-red-900/40 rounded-full hover:bg-red-900/40 transition shadow-[0_0_15px_rgba(220,38,38,0.2)] active:scale-95 group">
                     <i data-lucide="heart" id="reaction-icon" class="w-4 h-4 sm:w-5 sm:h-5 text-red-500 transition-transform group-hover:scale-110"></i>
                     <span id="reaction-count" class="text-xs sm:text-sm font-bold text-red-200/80">1,240</span>
                 </button>
             </div>
 
-            <!-- Audio Element (Hidden) -->
+            <!-- Audio -->
             <audio id="audio">
                 <source src="Chocolate%20Medico.mpeg" type="audio/mpeg">
-                <source src="Chocolate%20Medico.mp3" type="audio/mpeg">
                 <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
             </audio>
 
-            <!-- Progress Bar (DYNAMIC RANDOMIZED ECG CANVAS) -->
-            <div class="w-full mb-3 sm:mb-4 mt-1 sm:mt-2 px-1 ecg-container">
-                <!-- High-performance Canvas rendering the waveform -->
+            <!-- ECG -->
+            <div class="w-full h-[6vh] min-h-[40px] max-h-[60px] mb-1 px-1 ecg-container shrink-0">
                 <canvas id="ecg-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10"></canvas>
-                
-                <!-- Visible Dot that perfectly tracks the X and Y coordinates -->
-                <div id="ecg-thumb" class="absolute w-3.5 h-3.5 bg-white rounded-full pointer-events-none z-20" style="left: 0%; top: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 12px 3px rgba(239, 68, 68, 0.7);"></div>
-                
-                <!-- Invisible Slider for Touch/Mouse Interaction -->
+                <div id="ecg-thumb" class="absolute w-3 h-3 bg-white rounded-full z-20" style="left: 0%; top: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 10px 2px rgba(239, 68, 68, 0.7);"></div>
                 <input type="range" id="progress-bar" min="0" max="100" step="0.01" value="0" class="custom-range">
             </div>
             
-            <!-- Timers -->
-            <div class="w-full flex justify-between text-[10px] sm:text-xs text-red-200/50 mb-4 font-mono px-2">
+            <div class="w-full flex justify-between text-[10px] sm:text-xs text-red-200/50 mb-2 font-mono px-2 shrink-0">
                 <span id="current-time">0:00</span>
                 <span id="duration">0:00</span>
             </div>
 
             <!-- Controls -->
-            <div class="flex items-center justify-center gap-6 sm:gap-8 mb-6 sm:mb-8 w-full">
+            <div class="flex items-center justify-center gap-6 sm:gap-8 mb-4 w-full shrink-0">
                 <button class="text-red-200/50 hover:text-red-400 transition transform hover:scale-110" onclick="rewind(10)">
                     <i data-lucide="skip-back" class="w-6 h-6 sm:w-7 sm:h-7"></i>
                 </button>
-                <button id="play-btn" class="bg-red-600 hover:bg-red-500 text-white rounded-full p-4 sm:p-5 shadow-[0_0_15px_rgba(220,38,38,0.5)] sm:shadow-[0_0_20px_rgba(220,38,38,0.5)] transition transform hover:scale-110 flex items-center justify-center" onclick="togglePlay()">
-                    <i data-lucide="play" id="icon-play" class="w-6 h-6 sm:w-8 sm:h-8 ml-1 fill-current"></i>
+                <button id="play-btn" class="bg-red-600 hover:bg-red-500 text-white rounded-full p-4 sm:p-5 shadow-lg active:scale-90 transition flex items-center justify-center" onclick="togglePlay()">
+                    <i data-lucide="play" id="icon-play" class="w-6 h-6 sm:w-8 sm:h-8 ml-0.5 fill-current"></i>
                     <i data-lucide="pause" id="icon-pause" class="w-6 h-6 sm:w-8 sm:h-8 fill-current hidden"></i>
                 </button>
                 <button class="text-red-200/50 hover:text-red-400 transition transform hover:scale-110" onclick="forward(10)">
@@ -235,62 +222,44 @@
                 </button>
             </div>
 
-            <!-- Synchronized Lyrics -->
-            <div class="w-full border-t border-red-900/30 pt-5 sm:pt-6">
-                <div class="flex items-center justify-center gap-2 mb-3 sm:mb-4 text-red-300/50">
-                    <i data-lucide="mic-2" class="w-3 h-3 sm:w-4 sm:h-4"></i>
-                    <h3 class="text-[10px] sm:text-xs font-bold uppercase tracking-widest">Lyrics</h3>
+            <!-- Lyrics -->
+            <div class="w-full border-t border-red-900/20 pt-2 flex flex-col items-center flex-grow min-h-0 overflow-hidden">
+                <div class="flex items-center gap-2 mb-1 text-red-400/30 flex-shrink-0">
+                    <i data-lucide="mic-2" class="w-3 h-3"></i>
+                    <span class="text-[9px] font-bold uppercase tracking-widest">Lyrics</span>
                 </div>
-                <div id="lyrics-container" class="lyrics-container flex flex-col items-center gap-3 sm:gap-4 text-center text-sm sm:text-base px-2 sm:px-4 pb-12 sm:pb-16">
-                    <!-- Lyrics injected here -->
+                <div id="lyrics-container" class="lyrics-container">
+                    <!-- Dynamic -->
                 </div>
             </div>
-        </div>
 
-        <!-- Social Links Footer -->
-        <div class="mt-6 sm:mt-8 mb-6 sm:mb-8 flex flex-wrap justify-center gap-4 sm:gap-6 w-full max-w-md mx-auto">
-            <a href="https://www.instagram.com/drk.soul_lvr?igsh=MWh5dmRjNmx2OTRwYg==" target="_blank" class="p-2.5 sm:p-3 bg-[#1a0505] border border-red-900/30 rounded-full hover:bg-pink-600 hover:border-pink-600 transition shadow-[0_0_10px_rgba(0,0,0,0.5)] sm:shadow-[0_0_15px_rgba(0,0,0,0.5)] text-red-200/70 hover:text-white">
-                <i data-lucide="instagram" class="w-5 h-5"></i>
-            </a>
-            <a href="https://www.tiktok.com/@drk.soul.lvr?_r=1&_t=ZS-94dP8SLy6Mh" target="_blank" class="p-2.5 sm:p-3 bg-[#1a0505] border border-red-900/30 rounded-full hover:bg-red-600 hover:border-red-600 transition shadow-[0_0_10px_rgba(0,0,0,0.5)] sm:shadow-[0_0_15px_rgba(0,0,0,0.5)] text-red-200/70 hover:text-white">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a5.63 5.63 0 0 1-1.04-.1z"/></svg>
-            </a>
-            <a href="https://wa.me/94772949758" target="_blank" class="p-2.5 sm:p-3 bg-[#1a0505] border border-red-900/30 rounded-full hover:bg-green-500 hover:border-green-500 transition shadow-[0_0_10px_rgba(0,0,0,0.5)] sm:shadow-[0_0_15px_rgba(0,0,0,0.5)] text-red-200/70 hover:text-white">
-                <i data-lucide="message-circle" class="w-5 h-5"></i>
-            </a>
+            <!-- Social Links -->
+            <div class="flex justify-center gap-6 mt-2 pt-2 border-t border-red-900/10 w-full flex-shrink-0">
+                <a href="https://www.instagram.com/drk.soul_lvr?igsh=MWh5dmRjNmx2OTRwYg==" target="_blank" class="text-red-300/40"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                <a href="https://www.tiktok.com/@drk.soul.lvr?_r=1&_t=ZS-94dP8SLy6Mh" target="_blank" class="text-red-300/40">
+                   <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a5.63 5.63 0 0 1-1.04-.1z"/></svg>
+                </a>
+                <a href="https://wa.me/94772949758" target="_blank" class="text-red-300/40"><i data-lucide="message-circle" class="w-4 h-4"></i></a>
+            </div>
         </div>
     </div>
 
     <script>
-        // Initialize icons once
         lucide.createIcons();
 
-        // --- Modal Logic ---
-        function enterSite() {
-            const modal = document.getElementById('entry-modal');
-            const modalBox = document.getElementById('modal-box');
-            const mainContent = document.getElementById('main-content');
-
-            modal.style.opacity = '0';
-            modalBox.style.transform = 'scale(0.9)';
-            
-            mainContent.classList.remove('blurred');
+        // Fix ReferenceError by defining these functions globally
+        window.enterSite = function() {
+            document.getElementById('entry-modal').style.opacity = '0';
+            document.getElementById('modal-box').style.transform = 'scale(0.95)';
+            document.getElementById('main-content').classList.remove('blurred');
             document.body.classList.remove('modal-open');
+            setTimeout(() => document.getElementById('entry-modal').style.display = 'none', 700);
+        };
 
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 700);
-        }
+        window.goBack = function() {
+            window.history.length > 1 ? window.history.back() : window.location.href = "https://www.google.com";
+        };
 
-        function goBack() {
-            if (window.history.length > 1) {
-                window.history.back();
-            } else {
-                window.location.href = "https://www.google.com";
-            }
-        }
-
-        // --- Lyrics Data ---
         const lyricsData = [
             { time: 10, text: "Chocolate medico, oh my heart go boom," },
             { time: 14, text: "White coat shine like the moon, like the moon," },
@@ -312,7 +281,7 @@
             { time: 72, text: "Don’t know single or taken, it’s true," },
             { time: 75, text: "But my stupid heart say “she for you.”" },
             { time: 79, text: "Ba-dum… Ba-dum…" },
-            { time: 84.5, text: "Doctor… can you check my heart…" },
+            { time: 85, text: "Doctor… can you check my heart…" },
             { time: 88, text: "It beats only when you start…" },
             { time: 90, text: "Chocolate medico, don’t say no," },
             { time: 93, text: "You’re my fever, don’t let go," },
@@ -321,7 +290,6 @@
         ];
 
         const audio = document.getElementById('audio');
-        const playBtn = document.getElementById('play-btn');
         const iconPlay = document.getElementById('icon-play');
         const iconPause = document.getElementById('icon-pause');
         const progressBar = document.getElementById('progress-bar');
@@ -329,247 +297,93 @@
         const durationEl = document.getElementById('duration');
         const coverArt = document.getElementById('cover-art');
         const lyricsContainer = document.getElementById('lyrics-container');
-
-        // --- Canvas ECG Generation & Render System ---
         const canvas = document.getElementById('ecg-canvas');
         const ctx = canvas.getContext('2d');
         const ecgThumb = document.getElementById('ecg-thumb');
-        
-        const TOTAL_LEN = 30000;
+
+        // ECG Waveform Generation
+        const TOTAL_LEN = 20000;
         const waveform = new Float32Array(TOTAL_LEN);
         const pattern = [0, -1, -2, -1, 0, 0, 0, 0, 2, 5, 2, -12, -25, -12, 5, 15, 5, 0, 0, 0, 0, -1, -4, -6, -4, -1, 0, 0];
-        
         let wIdx = 0;
         while (wIdx < TOTAL_LEN) {
-            let gap = Math.floor(Math.random() * 120) + 60; 
-            for(let j = 0; j < gap && wIdx < TOTAL_LEN; j++) {
-                waveform[wIdx++] = (Math.random() * 1.5) - 0.75; 
-            }
-            for(let j = 0; j < pattern.length && wIdx < TOTAL_LEN; j++) {
-                waveform[wIdx++] = pattern[j] + (Math.random() * 2 - 1);
-            }
+            let gap = Math.floor(Math.random() * 100) + 50; 
+            for(let j = 0; j < gap && wIdx < TOTAL_LEN; j++) waveform[wIdx++] = (Math.random() * 1.5) - 0.75; 
+            for(let j = 0; j < pattern.length && wIdx < TOTAL_LEN; j++) waveform[wIdx++] = pattern[j];
         }
 
-        function getWaveY(x) {
-            let index = Math.floor(x) % TOTAL_LEN;
-            if (index < 0) index += TOTAL_LEN;
-            return waveform[index] || 0;
-        }
-
-        let isPlaying = false;
-        let isDraggingSlider = false;
-        let currentLyricIndex = -1;
-        let reactionCount = 1240;
-        let animationFrameId;
-        let scrollOffset = 0;
-        let lastDrawTime = performance.now();
+        let isPlaying = false, isDraggingSlider = false, currentLyricIndex = -1, reactionCount = 1240, animationFrameId, scrollOffset = 0, lastDrawTime = performance.now();
 
         function drawECG() {
-            const dpr = window.devicePixelRatio || 1;
-            const rect = canvas.getBoundingClientRect();
-            
+            const dpr = window.devicePixelRatio || 1, rect = canvas.getBoundingClientRect();
             if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
-                canvas.width = rect.width * dpr;
-                canvas.height = rect.height * dpr;
-                ctx.scale(dpr, dpr);
+                canvas.width = rect.width * dpr; canvas.height = rect.height * dpr; ctx.scale(dpr, dpr);
             }
-
-            const width = rect.width;
-            const height = rect.height;
-            const centerY = height / 2;
-
+            const width = rect.width, height = rect.height, centerY = height / 2;
             ctx.clearRect(0, 0, width, height);
+            const now = performance.now(), dt = (now - lastDrawTime) / 1000; lastDrawTime = now;
+            if (isPlaying && !isDraggingSlider) scrollOffset += 60 * dt; 
 
-            const now = performance.now();
-            const dt = (now - lastDrawTime) / 1000;
-            lastDrawTime = now;
-            
-            if (isPlaying && !isDraggingSlider) {
-                scrollOffset += 70 * dt; 
-            }
-
-            const duration = audio.duration || 1;
             const time = isDraggingSlider ? parseFloat(progressBar.value) : audio.currentTime;
-            const percent = duration > 0 ? (time / duration) : 0;
-            
+            const percent = (audio.duration > 0) ? (time / audio.duration) : 0;
             const dotX = width * percent;
             let dotY = centerY;
 
-            ctx.beginPath();
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
-            ctx.lineWidth = 2;
-            ctx.lineJoin = 'round';
+            ctx.beginPath(); ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'; ctx.lineWidth = 1.5;
             for (let x = dotX; x < width; x++) {
-                let y = centerY + getWaveY(x + scrollOffset);
-                if (x === dotX) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
+                let y = centerY + (waveform[Math.floor(x + scrollOffset) % TOTAL_LEN] || 0);
+                x === dotX ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
             }
             ctx.stroke();
 
-            ctx.beginPath();
-            ctx.strokeStyle = 'rgb(239, 68, 68)';
-            ctx.lineWidth = 2.5;
-            ctx.lineJoin = 'round';
-            ctx.shadowColor = 'rgba(239, 68, 68, 0.8)';
-            ctx.shadowBlur = 6;
+            ctx.beginPath(); ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 2; ctx.shadowColor = 'rgba(239, 68, 68, 0.5)'; ctx.shadowBlur = 4;
             for (let x = 0; x <= dotX; x++) {
-                let y = centerY + getWaveY(x + scrollOffset);
-                if (x === 0) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
-                if (x === Math.floor(dotX) || x === Math.ceil(dotX)) dotY = y; 
+                let y = centerY + (waveform[Math.floor(x + scrollOffset) % TOTAL_LEN] || 0);
+                x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                if (Math.floor(x) === Math.floor(dotX)) dotY = y;
             }
-            ctx.stroke();
-            ctx.shadowBlur = 0; 
+            ctx.stroke(); ctx.shadowBlur = 0;
 
-            if (ecgThumb) {
-                ecgThumb.style.left = `${dotX}px`;
-                ecgThumb.style.top = `${dotY}px`;
-                
-                const currentSpikeHeight = getWaveY(dotX + scrollOffset);
-                if (Math.abs(currentSpikeHeight) > 10) {
-                    ecgThumb.style.boxShadow = '0 0 20px 8px rgba(239, 68, 68, 0.9)';
-                    ecgThumb.style.background = '#fecaca';
-                    ecgThumb.style.transform = 'translate(-50%, -50%) scale(1.3)';
-                } else {
-                    ecgThumb.style.boxShadow = '0 0 12px 3px rgba(239, 68, 68, 0.7)';
-                    ecgThumb.style.background = '#ffffff';
-                    ecgThumb.style.transform = 'translate(-50%, -50%) scale(1)';
-                }
-            }
-
-            if (!isDraggingSlider) {
-                progressBar.value = time;
-                currentTimeEl.innerText = formatTime(time);
-                syncLyrics(time);
-            }
-
-            if (isPlaying || isDraggingSlider) {
-                animationFrameId = requestAnimationFrame(drawECG);
-            }
-        }
-
-        drawECG();
-
-        progressBar.addEventListener('mousedown', () => { 
-            isDraggingSlider = true; 
-            if (!animationFrameId) {
-                lastDrawTime = performance.now();
-                drawECG();
-            }
-        });
-        progressBar.addEventListener('touchstart', () => {
-            isDraggingSlider = true;
-            if (!animationFrameId) {
-                lastDrawTime = performance.now();
-                drawECG();
-            }
-        }, {passive: true});
-        
-        progressBar.addEventListener('input', () => {
-            const time = parseFloat(progressBar.value);
-            audio.currentTime = time;
-            currentTimeEl.innerText = formatTime(time);
-            syncLyrics(time);
-        });
-
-        progressBar.addEventListener('change', () => {
-            isDraggingSlider = false;
-            if (!isPlaying && animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-                animationFrameId = null;
-            }
-        });
-
-        function triggerReaction(event) {
-            const btn = event.currentTarget;
-            const icon = document.getElementById('reaction-icon');
-            const countEl = document.getElementById('reaction-count');
-            
-            if (!icon.classList.contains('fill-current')) {
-                icon.classList.add('fill-current');
-            }
-
-            reactionCount++;
-            countEl.innerText = reactionCount.toLocaleString();
-
-            const particle = document.createElement('div');
-            particle.innerHTML = '❤️';
-            particle.className = 'absolute text-xl sm:text-2xl pointer-events-none floating-particle';
-            
-            const randomX = (Math.random() - 0.5) * 60; 
-            particle.style.left = `calc(50% + ${randomX}px - 10px)`;
-            particle.style.bottom = '100%';
-
-            btn.appendChild(particle);
-            setTimeout(() => particle.remove(), 1000);
-        }
-
-        function renderLyrics() {
-            lyricsData.forEach((line, index) => {
-                const p = document.createElement('p');
-                p.className = 'lyric-line';
-                p.id = `lyric-${index}`;
-                p.innerHTML = line.text === "" ? "&nbsp;" : line.text;
-                lyricsContainer.appendChild(p);
-            });
-        }
-        renderLyrics();
-
-        function formatTime(seconds) {
-            if (isNaN(seconds)) return "0:00";
-            const mins = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            ecgThumb.style.left = `${dotX}px`; ecgThumb.style.top = `${dotY}px`;
+            if (!isDraggingSlider) { progressBar.value = time; currentTimeEl.innerText = formatTime(time); syncLyrics(time); }
+            if (isPlaying || isDraggingSlider) animationFrameId = requestAnimationFrame(drawECG);
         }
 
         function syncLyrics(time) {
             let activeIndex = -1;
-            for (let i = 0; i < lyricsData.length; i++) {
-                if (time >= lyricsData[i].time) {
-                    activeIndex = i;
-                } else {
-                    break;
-                }
-            }
-
+            for (let i = 0; i < lyricsData.length; i++) { if (time >= lyricsData[i].time) activeIndex = i; else break; }
             if (activeIndex !== currentLyricIndex && activeIndex !== -1) {
                 if (currentLyricIndex !== -1) {
-                    const oldActive = document.getElementById(`lyric-${currentLyricIndex}`);
-                    if (oldActive) {
-                        oldActive.classList.remove('active');
-                        void oldActive.offsetWidth; 
-                    }
+                    const old = document.getElementById(`lyric-${currentLyricIndex}`);
+                    if (old) old.classList.remove('active');
                 }
-                
-                const newActive = document.getElementById(`lyric-${activeIndex}`);
-                if (newActive) {
-                    newActive.classList.add('active');
-                    const scrollPos = newActive.offsetTop - lyricsContainer.offsetTop - (lyricsContainer.clientHeight / 2) + (newActive.clientHeight / 2);
+                const current = document.getElementById(`lyric-${activeIndex}`);
+                if (current) {
+                    current.classList.add('active');
+                    const scrollPos = current.offsetTop - lyricsContainer.offsetTop - (lyricsContainer.clientHeight / 2) + (current.clientHeight / 2);
                     lyricsContainer.scrollTo({ top: scrollPos, behavior: 'smooth' });
                 }
                 currentLyricIndex = activeIndex;
             }
         }
 
-        function togglePlay() {
+        window.togglePlay = function() {
             if (isPlaying) {
-                audio.pause();
-                iconPlay.classList.remove('hidden');
-                iconPause.classList.add('hidden');
-                coverArt.classList.add('paused');
-                isPlaying = false;
+                audio.pause(); isPlaying = false; 
+                iconPlay.classList.remove('hidden'); 
+                iconPause.classList.add('hidden'); 
+                coverArt.classList.add('paused'); 
                 cancelAnimationFrame(animationFrameId);
-                animationFrameId = null;
             } else {
                 const playPromise = audio.play();
                 if (playPromise !== undefined) {
                     playPromise.then(() => {
-                        iconPlay.classList.add('hidden');
-                        iconPause.classList.remove('hidden');
-                        coverArt.classList.remove('paused');
-                        isPlaying = true;
+                        isPlaying = true; 
+                        iconPlay.classList.add('hidden'); 
+                        iconPause.classList.remove('hidden'); 
+                        coverArt.classList.remove('paused'); 
                         lastDrawTime = performance.now(); 
-                        if (!animationFrameId) drawECG();
+                        drawECG();
                     }).catch(error => {
                         console.error("Audio playback error:", error);
                         isPlaying = false;
@@ -579,48 +393,30 @@
                     });
                 }
             }
-        }
+        };
 
-        function forward(seconds) { 
-            audio.currentTime += seconds;
-            if (!isPlaying) { lastDrawTime = performance.now(); drawECG(); cancelAnimationFrame(animationFrameId); animationFrameId = null;} 
-        }
-        function rewind(seconds) { 
-            audio.currentTime -= seconds; 
-            if (!isPlaying) { lastDrawTime = performance.now(); drawECG(); cancelAnimationFrame(animationFrameId); animationFrameId = null;} 
-        }
+        window.forward = function(s) { audio.currentTime += s; if(!isPlaying) drawECG(); };
+        window.rewind = function(s) { audio.currentTime -= s; if(!isPlaying) drawECG(); };
 
-        audio.addEventListener('loadedmetadata', () => {
-            durationEl.innerText = formatTime(audio.duration);
-            progressBar.max = audio.duration;
-            lastDrawTime = performance.now();
-            drawECG();
-            cancelAnimationFrame(animationFrameId);
-            animationFrameId = null;
-        });
-        
-        audio.addEventListener('ended', () => {
-            isPlaying = false;
-            iconPlay.classList.remove('hidden');
-            iconPause.classList.add('hidden');
-            coverArt.classList.add('paused');
-            cancelAnimationFrame(animationFrameId);
-            animationFrameId = null;
-            
-            progressBar.value = 0;
-            currentTimeEl.innerText = "0:00";
-            lyricsContainer.scrollTo({ top: 0, behavior: 'smooth' });
-            if (currentLyricIndex !== -1) {
-                document.getElementById(`lyric-${currentLyricIndex}`).classList.remove('active');
-            }
-            currentLyricIndex = -1;
-            
-            lastDrawTime = performance.now();
-            drawECG(); 
-            cancelAnimationFrame(animationFrameId);
-            animationFrameId = null;
+        window.triggerReaction = function(e) {
+            reactionCount++; document.getElementById('reaction-count').innerText = reactionCount.toLocaleString();
+            document.getElementById('reaction-icon').classList.add('fill-current');
+            const p = document.createElement('div'); p.innerHTML = '❤️'; p.className = 'absolute text-xl pointer-events-none floating-particle';
+            p.style.left = `calc(50% + ${(Math.random() - 0.5) * 40}px)`; p.style.bottom = '100%';
+            e.currentTarget.appendChild(p); setTimeout(() => p.remove(), 1000);
+        };
+
+        progressBar.addEventListener('input', () => { isDraggingSlider = true; audio.currentTime = progressBar.value; drawECG(); });
+        progressBar.addEventListener('change', () => isDraggingSlider = false);
+        audio.addEventListener('loadedmetadata', () => { durationEl.innerText = formatTime(audio.duration); progressBar.max = audio.duration; drawECG(); });
+        audio.addEventListener('ended', () => { isPlaying = false; iconPlay.classList.remove('hidden'); iconPause.classList.add('hidden'); coverArt.classList.add('paused'); progressBar.value = 0; currentTimeEl.innerText = "0:00"; });
+
+        lyricsData.forEach((line, i) => {
+            const p = document.createElement('p'); p.className = 'lyric-line'; p.id = `lyric-${i}`; p.innerHTML = line.text || "&nbsp;"; lyricsContainer.appendChild(p);
         });
 
+        function formatTime(s) { return isNaN(s) ? "0:00" : `${Math.floor(s/60)}:${Math.floor(s%60).toString().padStart(2,'0')}`; }
+        drawECG();
     </script>
 </body>
 </html>
